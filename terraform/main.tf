@@ -4,8 +4,8 @@
 terraform {
   required_providers {
     virtualbox = {
-      source = "alouette/virtualbox"
-      version = "7.2.16r174877"
+      source = "terra-farm/virtualbox"
+      version = "0.2.2-alpha.1"
     }
   }
 }
