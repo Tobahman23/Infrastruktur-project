@@ -1,14 +1,19 @@
 
 #Powershell Skript
 
-    $terraformPath = "./terraform/main.tf" #Terraform filens path
+$terraformPath = "./terraform/main.tf" #Terraform filens path
 
 
 
 
 
 function TerraformInitialize {
-    
+    try {
+        Write-Host "How many pairs of Vms do you want to create?"
+    }
+    catch {
+        Write-Warning "Something went wrong."
+    }
 }
 
 
@@ -31,13 +36,7 @@ function NamingVm {
 
             $content = Get-Content -Path $terraformPath -Raw #Uppdaterar Content variabeln
 
-            $newVmTwo = Read-Host "Name the second VM: "
-            Start-Sleep -Seconds 1
-            $vmTwoUpdt = $content -replace $VmTwo, ('${1}' + $newVmTwo + '${2}') #Byter ut Gamla namnet med input
-            [System.IO.File]::WriteAllText($terraformPath, $vmTwoUpdt, [System.Text.Encoding]::UTF8) #Skriver in nya namnet i terraform filen
-            Write-Host "The name of the VM has changed to '$newVmTwo'"
-
-            Start-Sleep -Seconds 2
+            TerraformInitialize
 
         } else {
             Write-Warning "The Regex does not match the file, make sure the virtualbox_vm resources have the correct name in the terraform file."

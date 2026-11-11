@@ -4,7 +4,7 @@
 terraform {
   required_providers {
     virtualbox = {
-      source = "terra-farm/virtualbox"
+      source = "terra-farm/virtualbox" #Terraform provider för Virtualbox
       version = "0.2.2-alpha.1"
     }
   }
@@ -15,33 +15,27 @@ provider "virtualbox" {
 }
 
 resource "virtualbox_vm" "batocera" {
-  name = "E"
-  image = "batocera-x86_64-42-20251006.img"
-  cpus = 2
-  memory = 4000
+  name = "dasagsard"
+  image = "batocera.box"
+  cpus = 4
+  memory = "4096 mib"
   network_adapter {
-    type = "hostonly"
+  type           = "hostonly"
+  host_interface = "VirtualBox Host-Only Ethernet Adapter" # Ändra till ditt faktiska kort
   }
-}
-resource "virtualbox_vm" "tinycore" {
-  name = "A"
-  image = "TinyCore-current.iso"
-  cpus = 1
-  memory = 1000
-  network_adapter {
-    type = "hostonly"
-  }
-}
-output "CombinedMemoryUsage" {
-  value = virtualbox_vm.batocera.memory + virtualbox_vm.tinycore.memory
-}
-output "CombinedCpusUsed" {
-  value = virtualbox_vm.batocera.cpus + virtualbox_vm.tinycore.cpus
-}
-output "StatusBatocera" {
-  value = virtualbox_vm.batocera.status
-}
-output "StatusTinyCore" {
-  value = virtualbox_vm.tinycore.status
+  status = "poweroff"
+  
 }
 
+resource "terraform_data" "configure_vm" {
+    provisioner "local-exec" {
+    command = <<-EOT
+      VBoxManage controlvm ${virtualbox_vm.batocera.name} poweroff
+      VBoxManage modifyvm "${virtualbox_vm.batocera.name}" --graphicscontroller vmsvga --vram 128 --accelerate3d on
+    EOT
+  }
+}
+
+output "SpecsBatocera" {
+  value = virtualbox_vm.batocera.cpus
+}
