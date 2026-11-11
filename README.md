@@ -2,7 +2,7 @@
 
 ## Förutsättningar
 
-- Batocera och Tinycore imgs installerade
+- Batocera box eller annan box med samma fil namn installerad (Behövs Vagrant för att skapa box filer)
 - Terraform.exe path inlagd i miljövariabler
 - Virtualbox mapp inlagd i miljövariabler
-- Installerat terraform provider för virtualbox (terra-farm, kan behövas Golang för att installera detta smidigt.)
+- Installerat terraform provider för virtualbox (terra-farm, kan även behövas Golang för att installera detta smidigt.)
