@@ -15,7 +15,7 @@ provider "virtualbox" {
 }
 
 resource "virtualbox_vm" "batocera" {
-  name = "test"
+  name = "herwegoagain"
   image = "batocera.box"
   cpus = 4
   memory = "4096 mib"

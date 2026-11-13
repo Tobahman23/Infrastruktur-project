@@ -47,18 +47,31 @@ function CloneVM {
 
 function TerraformInitialize {
     param(
-        [string]$name = "temp"
+        [string]$name = "temp",
+        [int]$memory = 4096,
+        [int]$cpus = 4
     )
     try {
+        $vmCreated = $false
         Set-Location ..\terraform
         terraform init
         terraform plan
         #terraform apply
         $tfProcess = Start-Process -FilePath "terraform" -ArgumentList "apply", "-auto-approve" -NoNewWindow -PassThru
-        Start-Sleep -Seconds 10
+        Start-Sleep -Seconds 2
+        while (-not $vmCreated) {
+            $vminfo = VBoxManage showvminfo $name --machinereadable 2>$null
+            if ($vminfo -match "memory=$memory" -and $vminfo -match "cpus=$cpus") {
+                $vmCreated = $true
+            } else {
+                Start-Sleep -Seconds 1
+            }
+        }
         Write-Host "..."
         taskkill /PID $tfProcess.Id /T /F | Out-Null
         Start-Sleep -Seconds 5
+        VBoxManage controlvm $name poweroff 2>$null
+        Start-Sleep -Seconds 2
         VBoxManage modifyvm $name --graphicscontroller vmsvga --vram 128 --accelerate3d on
         Write-Host "Vm called $name has been created in Virtualbox."
         Start-Sleep -Seconds 1
