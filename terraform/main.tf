@@ -14,8 +14,21 @@ provider "virtualbox" {
 
 }
 
+
+resource "virtualbox_vm" "ubuntu" {
+  name = "ubuyes"
+  image = "ubuntu.box"
+  cpus = 2
+  memory = "2048 mib"
+  network_adapter {
+  type           = "hostonly"
+  host_interface = "VirtualBox Host-Only Ethernet Adapter" # Ändra till ditt faktiska kort
+  }
+  status = "poweroff"
+}
+
 resource "virtualbox_vm" "batocera" {
-  name = "herwegoagain"
+  name = "batoyes"
   image = "batocera.box"
   cpus = 4
   memory = "4096 mib"
@@ -27,15 +40,12 @@ resource "virtualbox_vm" "batocera" {
   
 }
 
-resource "terraform_data" "configure_vm" {
-    provisioner "local-exec" {
-    command = <<-EOT
-      VBoxManage controlvm ${virtualbox_vm.batocera.name} poweroff
-      VBoxManage modifyvm "${virtualbox_vm.batocera.name}" --graphicscontroller vmsvga --vram 128 --accelerate3d on
-    EOT
-  }
-}
-
-output "SpecsBatocera" {
+output "cpus_batocera" {
   value = virtualbox_vm.batocera.cpus
 }
+
+output "memory_batocera" {
+  value = virtualbox_vm.batocera.memory
+}
+
+
