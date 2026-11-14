@@ -7,12 +7,11 @@
 - Virtualbox installerat och dess mapp inlagd i miljövariabler
 - Installerat terraform provider för virtualbox (Använde Golang för detta), **Viktigt för att terraform ska funka i projektet**
 
-
 ## Steg för att få en miljö där skriptet och terraform funkar
 
 0. Ladda ner och installera Virtualbox och Terraform. **Lägg in deras Path i miljövariabler.**
 
-1. Klona detta repo: https://github.com/terra-farm/terraform-provider-virtualbox
+1. Klona detta repo: <https://github.com/terra-farm/terraform-provider-virtualbox>
 
 2. Ladda ner Go(lang)
 
@@ -24,9 +23,9 @@
 
 6. Ladda ner batocera.box eller skapa egen box med samma namn och placera i terraform mappen på detta projekt. (Länken finns i README på Studentportalen)
 
-7. Ladda ner denna box: https://portal.cloud.hashicorp.com/vagrant/discover/ubuntu/trusty64 och döp om den till ubuntu.box, placera även denna i terraform mappen på detta projekt.
+7. Ladda ner denna box: <https://portal.cloud.hashicorp.com/vagrant/discover/ubuntu/trusty64> och döp om den till ubuntu.box, placera även denna i terraform mappen på detta projekt.
 
-8. Kör vmcreation.ps1 från powershell eller terraform mappen 
+8. Kör vmcreation.ps1 från powershell eller terraform mappen
 
 ## Mål med projektet
 
@@ -55,11 +54,11 @@ När de två vm typerena är skapade och kanske klonats så startas en vm upp f�
 
 ## Reflektion
 
-Om jag gjort om detta projekt hade jag definitivt letat efter ett annat verktyg än terra-farm för att få Virtualbox och Terraform att samarbeta. 
-Verktyget hade väldigt minimalistiska inställningar vilket gjorde att jag inte kunde sätta in 3d acceleration på mina vm. 
+Om jag gjort om detta projekt hade jag definitivt letat efter ett annat verktyg än terra-farm för att få Virtualbox och Terraform att samarbeta.
+Verktyget hade väldigt minimalistiska inställningar vilket gjorde att jag inte kunde sätta in 3d acceleration på mina vm.
 
 Detta gjorde att jag var tvungen att leta efter andra sätt att göra detta vilket resulterade i att jag var tvungen att stänga av terraforms apply fas innan den var klar och sedan köra apply igen bara för att få outputs.
 
 Något som var riktigt enkelt dock var användingen av VBoxManage, som hanterar virtualbox. Det fanns ett kommando för det mesta man ville göra vilket gjorde att jag kunde lösa de flesta problem som uppstod med skapandet av virtuella maskiner.
 
-### Github länk - https://github.com/Tobahman23/Infrastruktur-project
+### Github länk - <https://github.com/Tobahman23/Infrastruktur-project>
